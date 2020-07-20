@@ -21,8 +21,13 @@ var once sync.Once
 func Application() *app {
 	//  初始化引擎
 	once.Do(func() {
-		// todo
+		//  设置 gin 是 调试模式 还是 生产模式
+		gin.SetMode(gin.DebugMode)
+
 		router := gin.Default()
+
+		//  配置 swagger
+		swaggerConfigure(router)
 
 		//   404 not found configure
 		router.NoRoute(func(ctx *gin.Context) {

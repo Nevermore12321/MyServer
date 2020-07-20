@@ -1,0 +1,11 @@
+server:
+  host: 127.0.0.1
+  port: 1234
+
+swagger:
+  title: Golang Web Server API
+  description: This is a my backend server.
+  version: v1
+  Schemes:
+    - https
+    - http

@@ -7,8 +7,9 @@ Keep going. Keep knowing.
 - Gin-Swagger
     - go get -u github.com/swaggo/swag/cmd/swag
     - go get -u github.com/swaggo/gin-swagger
-    
-
+    - 每次修改了 接口， 要 swag init 
+- viper
+    - go get -u github.com/spf13/viper
 
 ## gin-swagger 使用
 
