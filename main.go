@@ -2,6 +2,7 @@ package main
 
 import (
 	"MyServer/app"
+	_ "MyServer/router"
 )
 
 func main() {
