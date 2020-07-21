@@ -8,5 +8,5 @@ import (
 func init() {
 	appInstance := app.Application()
 
-	appInstance.Router.GET("/", controller.LoginController)
+	appInstance.Router.GET("/v1", controller.LoginController)
 }
