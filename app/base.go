@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"net/http"
 	"sync"
 )
@@ -17,6 +18,9 @@ var webAppInstance *app
 
 //  Once.Do, 只执行一次
 var once sync.Once
+
+//   全局可以使用的  logger
+var Logger *zap.Logger
 
 func Application() *app {
 	//  初始化引擎
@@ -36,7 +40,12 @@ func Application() *app {
 			})
 		})
 
+		//  将配置好的  gin 的 实例 复制给 webAppInstance
 		webAppInstance = &app{router}
+
+		//  初始化 Logger，并将初始化好的 赋值给全局变量 Logger
+		Logger = loggerConfigure()
+
 	})
 
 	return webAppInstance

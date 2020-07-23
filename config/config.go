@@ -28,7 +28,7 @@ func init() {
 		//  读取配置文件
 		err := ConfigViper.ReadInConfig()
 		if err != nil {
-
+			// todo 日志
 		}
 	})
 

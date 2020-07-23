@@ -11,6 +11,9 @@ Keep going. Keep knowing.
 - viper
     - go get -u github.com/spf13/viper
 
+- logger： zap + Lumberjack（归档，写入文件）
+    - go get -u go.uber.org/zap
+    - go get -u github.com/natefinch/lumberjack
 ## gin-swagger 使用
 
 1. swag init

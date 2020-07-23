@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"MyServer/app"
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 	"net/http"
 )
 
@@ -15,6 +17,10 @@ import (
 // @Failure 400 {string} json "{"errcode":"400","data":"","msg":"error......"}"
 // @Router / [get]
 func LoginController(ctx *gin.Context) {
+	app.Logger.Info("log success", zap.String("url", ctx.Request.URL.Host))
+	app.Logger.Debug("debug success")
+	app.Logger.Error("Error success")
+	app.Logger.Warn("Warn success")
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "OK",
 	})
