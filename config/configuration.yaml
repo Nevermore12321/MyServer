@@ -6,6 +6,10 @@ swagger:
   title: Golang Web Server API
   description: This is a my backend server.
   version: v1
-  Schemes:
+  basePath: v1
+  schemes:
     - https
     - http
+log:
+  logLevel: debug
+  logFilename: server.log

@@ -1,0 +1,47 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "description": "验证用户登录是否成功",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户信息"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"errcode\":\"200\",\"data\":\"[{\"expId\":\"111\",\"expName\":\"TensorFlow\",\"expType\":\"TensorFlow\",\"expTrade\":\"制造业\",\"expScene\":\"零售\",\"expRemark\":\"零售零售零售零售\",\"expDeg\":\"2\",\"expCreateUser\":\"tfg\"}]\",\"msg\":\"\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"errcode\":\"400\",\"data\":\"\",\"msg\":\"error......\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

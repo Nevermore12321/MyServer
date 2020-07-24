@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"github.com/spf13/viper"
 	"sync"
 )
@@ -22,14 +23,22 @@ func init() {
 		ConfigViper.SetDefault("test", "value")
 		ConfigViper.SetConfigName("configuration")
 		ConfigViper.SetConfigType("yaml")
-		ConfigViper.AddConfigPath(".")
+		ConfigViper.AddConfigPath("./config")
 		ConfigViper.AddConfigPath("$HOME/,MyServer")
 
 		//  读取配置文件
 		err := ConfigViper.ReadInConfig()
 		if err != nil {
-			// todo 日志
+			// 如果 读取配置文件出错
+			if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+				// Config file not found; ignore error if desired
+				panic(fmt.Errorf("Config file not found\n"))
+			} else {
+				// Config file was found but another error was produced
+				panic(fmt.Errorf("Fatal error config file: %s \n", err))
+			}
 		}
+
 	})
 
 }

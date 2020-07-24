@@ -25,6 +25,10 @@ var Logger *zap.Logger
 func Application() *app {
 	//  初始化引擎
 	once.Do(func() {
+
+		//  初始化 Logger，并将初始化好的 赋值给全局变量 Logger
+		Logger = loggerConfigure()
+
 		//  设置 gin 是 调试模式 还是 生产模式
 		gin.SetMode(gin.DebugMode)
 
@@ -42,9 +46,6 @@ func Application() *app {
 
 		//  将配置好的  gin 的 实例 复制给 webAppInstance
 		webAppInstance = &app{router}
-
-		//  初始化 Logger，并将初始化好的 赋值给全局变量 Logger
-		Logger = loggerConfigure()
 
 	})
 
