@@ -1,6 +1,7 @@
 package app
 
 import (
+	"MyServer/config"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -30,7 +31,9 @@ func Application() *app {
 		Logger = loggerConfigure()
 
 		//  设置 gin 是 调试模式 还是 生产模式
-		gin.SetMode(gin.DebugMode)
+		ginModeConfig := config.ConfigViper.GetString("server.mode")
+		gin.SetMode(ginModeConfig)
+		//gin.SetMode(gin.DebugMode)
 
 		router := gin.Default()
 

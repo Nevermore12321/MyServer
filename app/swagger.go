@@ -19,7 +19,11 @@ func swaggerConfigure(engine *gin.Engine) {
 	docs.SwaggerInfo.BasePath = config.ConfigViper.GetString("swagger.basePath")
 	docs.SwaggerInfo.Schemes = config.ConfigViper.GetStringSlice("swagger.schemes")
 
-	url := ginSwagger.URL("http://localhost:8080/swagger/doc.json")
+	swaggerPath := "http://" +
+		config.ConfigViper.GetString("server.host") + ":" +
+		config.ConfigViper.GetString("server.port") + "/swagger/doc.json"
+
+	url := ginSwagger.URL(swaggerPath)
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 	//  打印日志 ， swagger 初始化成功
 	Logger.Info("swagger 配置完成",
