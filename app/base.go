@@ -39,7 +39,6 @@ func Application() *app {
 
 		//  配置 swagger
 		swaggerConfigure(router)
-
 		//   404 not found configure
 		router.NoRoute(func(ctx *gin.Context) {
 			ctx.JSON(http.StatusNotFound, gin.H{
