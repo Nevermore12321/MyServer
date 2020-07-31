@@ -44,8 +44,8 @@ func Application() *app {
 			ctx.JSON(http.StatusNotFound, gin.H{
 				"message": "Not Found",
 			})
-		})
-
+		})																																																																																																																																																																																																																																																																																																														
+																																	
 		//  将配置好的  gin 的 实例 复制给 webAppInstance
 		webAppInstance = &app{router}
 

@@ -8,12 +8,12 @@ import (
 )
 
 // 设置跨域 的 gin 中间件
-func CorssDomain() gin.HandlerFunc {
+func corssDomain() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//  获取 请求的 method 和 Headers 中的 Origin
 		method := ctx.Request.Method
 		requestOrigin := ctx.Request.Header.Get("Origin")
-
+		app.Logger.Info(requestOrigin)
 		//  判断 请求的 来源 ， 请求 Headers 中的 Origin 表示请求来源
 		//  如果有来源，则回response， 否则视为 不安全请求，不给予 跨域认证
 		if requestOrigin != "" {
@@ -50,5 +50,7 @@ func CorssDomain() gin.HandlerFunc {
 			}
 		}()
 
+		app.Logger.Info("Corss Domain middleware success configure.")
+		ctx.Next()
 	}
 }

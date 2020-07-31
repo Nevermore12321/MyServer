@@ -1,13 +1,14 @@
 package main
 
 import (
+	_ "MyServer/middleware"
 	"MyServer/app"
 	"MyServer/config"
 	_ "MyServer/router"
 )
 
 func main() {
-	//fmt.Println("start ...")
+	//fmt.Println("start ...
 
 	myApp := app.Application()
 	//  进程结束 同步 log
