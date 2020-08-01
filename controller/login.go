@@ -2,6 +2,8 @@ package controller
 
 import (
 	"MyServer/app"
+	"MyServer/database/adminDB"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"net/http"
@@ -21,6 +23,19 @@ func LoginController(ctx *gin.Context) {
 	app.Logger.Debug("debug success")
 	app.Logger.Error("Error success")
 	app.Logger.Warn("Warn success")
+	var user *adminDB.UserInfo = &adminDB.UserInfo{Name: "zy", Password: "123"}
+	insertUsers := []*adminDB.UserInfo{}
+	insertUsers = append(insertUsers, user)
+	var loginInterface adminDB.AdminDBOperation
+
+	loginInterface = user
+	err := loginInterface.Insert(insertUsers)
+	if err != nil {
+		errMsg := fmt.Sprintf("Mysql Err: %v", err)
+		app.Logger.Error(errMsg)
+		panic(err)
+	}
+
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "OK",
 	})

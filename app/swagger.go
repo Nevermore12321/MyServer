@@ -13,11 +13,11 @@ func swaggerConfigure(engine *gin.Engine) {
 	//  swagger 设置
 	//  读取配置文件
 
-	docs.SwaggerInfo.Title = config.ConfigViper.GetString("swagger.title")
-	docs.SwaggerInfo.Description = config.ConfigViper.GetString("swagger.description")
-	docs.SwaggerInfo.Version = config.ConfigViper.GetString("swagger.version")
-	docs.SwaggerInfo.BasePath = config.ConfigViper.GetString("swagger.basePath")
-	docs.SwaggerInfo.Schemes = config.ConfigViper.GetStringSlice("swagger.schemes")
+	docs.SwaggerInfo.Title = config.GetStringFromConfig("swagger.title")
+	docs.SwaggerInfo.Description = config.GetStringFromConfig("swagger.description")
+	docs.SwaggerInfo.Version = config.GetStringFromConfig("swagger.version")
+	docs.SwaggerInfo.BasePath = config.GetStringFromConfig("swagger.basePath")
+	docs.SwaggerInfo.Schemes = config.GetStringSliceFromConfig("swagger.schemes")
 
 	swaggerPath := "http://" +
 		config.ConfigViper.GetString("server.host") + ":" +

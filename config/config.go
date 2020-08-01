@@ -42,3 +42,11 @@ func init() {
 	})
 
 }
+
+func GetStringFromConfig(key string) string {
+	return ConfigViper.GetString(key)
+}
+
+func GetStringSliceFromConfig(key string) []string {
+	return ConfigViper.GetStringSlice(key)
+}

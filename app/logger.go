@@ -16,7 +16,7 @@ func loggerConfigure() *zap.Logger {
 	encoder := getEncoder()
 
 	//  读取配置文件， logLevel 参数
-	logLevel := config.ConfigViper.GetString("log.logLevel")
+	logLevel := config.GetStringFromConfig("log.logLevel")
 	var zapLogLevel zap.AtomicLevel
 
 	switch logLevel {
@@ -55,7 +55,7 @@ func loggerConfigure() *zap.Logger {
 //  使用 Lumberjack 来 实现 写入 日志文件
 func getLoggerWriter() zapcore.WriteSyncer {
 	//  读取 log 的配置信息
-	logFilename := config.ConfigViper.GetString("log.logFilename")
+	logFilename := config.GetStringFromConfig("log.logFilename")
 	logFileFullPath := "logs/" + logFilename
 
 	//  lumberjackLogger 其实是一个 io.Writter

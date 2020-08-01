@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "MyServer/middleware"
 	"MyServer/app"
 	"MyServer/config"
+	_ "MyServer/middleware"
 	_ "MyServer/router"
 )
 
@@ -15,8 +15,8 @@ func main() {
 	defer app.Logger.Sync()
 
 	//  读取配置文件中的 IP 和 端口
-	host := config.ConfigViper.GetString("server.host")
-	port := config.ConfigViper.GetString("server.port")
+	host := config.GetStringFromConfig("server.host")
+	port := config.GetStringFromConfig("server.port")
 	listenAddr := host + ":" + port
 	_ = myApp.Router.Run(listenAddr)
 }

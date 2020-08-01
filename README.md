@@ -14,6 +14,10 @@ Keep going. Keep knowing.
 - logger： zap + Lumberjack（归档，写入文件）
     - go get -u go.uber.org/zap
     - go get -u github.com/natefinch/lumberjack
+    
+- gorm : 操作 mysql
+    - go get -u github.com/jinzhu/gorm
+
 ## gin-swagger 使用
 
 1. swag init

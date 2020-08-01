@@ -31,7 +31,7 @@ func Application() *app {
 		Logger = loggerConfigure()
 
 		//  设置 gin 是 调试模式 还是 生产模式
-		ginModeConfig := config.ConfigViper.GetString("server.mode")
+		ginModeConfig := config.GetStringFromConfig("server.mode")
 		gin.SetMode(ginModeConfig)
 		//gin.SetMode(gin.DebugMode)
 
@@ -44,8 +44,8 @@ func Application() *app {
 			ctx.JSON(http.StatusNotFound, gin.H{
 				"message": "Not Found",
 			})
-		})																																																																																																																																																																																																																																																																																																														
-																																	
+		})
+
 		//  将配置好的  gin 的 实例 复制给 webAppInstance
 		webAppInstance = &app{router}
 
