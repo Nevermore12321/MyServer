@@ -1,8 +1,7 @@
 package adminDB
 
 type AdminDBOperation interface {
-	Insert([]*UserInfo) error
-	Delete(users []*UserInfo) error
-	Update(users []*UserInfo) error
-	Query(users []*UserInfo) error
+	Insert() error
+	Delete(hardDel bool) error
+	Update(modify map[string]interface{}, queryString interface{}, keyList ...interface{}) error
 }

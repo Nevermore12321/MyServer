@@ -23,13 +23,17 @@ func LoginController(ctx *gin.Context) {
 	app.Logger.Debug("debug success")
 	app.Logger.Error("Error success")
 	app.Logger.Warn("Warn success")
-	var user *adminDB.UserInfo = &adminDB.UserInfo{Name: "zy", Password: "123"}
-	insertUsers := []*adminDB.UserInfo{}
-	insertUsers = append(insertUsers, user)
+
+	type User = adminDB.UserInfo
+
+	var user *User = &User{Name: "zy", Password: "123"}
+
 	var loginInterface adminDB.AdminDBOperation
 
 	loginInterface = user
-	err := loginInterface.Insert(insertUsers)
+	//err := loginInterface.Insert()
+	//err := loginInterface.Delete(true)
+	err := loginInterface.Update(map[string]interface{}{"name": "hello", "password": "1234"}, "name = ?", user.Name)
 	if err != nil {
 		errMsg := fmt.Sprintf("Mysql Err: %v", err)
 		app.Logger.Error(errMsg)
