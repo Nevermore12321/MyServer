@@ -30,6 +30,10 @@ func mysqlInit() {
 		panic(err)
 	}
 
+	//  创建 mysql 连接池
+	db.DB().SetMaxIdleConns(10)
+	db.DB().SetMaxOpenConns(100)
+
 	//  建表
 	db.AutoMigrate(&UserInfo{})
 

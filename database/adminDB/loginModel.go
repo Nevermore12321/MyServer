@@ -77,3 +77,32 @@ func (user *UserInfo) Update(modify map[string]interface{}, queryString interfac
 
 	return nil
 }
+
+func (user *UserInfo) Query(sql string, values ...interface{}, out []*UserInfo) error {
+	if sql == "" {
+		return errors.New("no Sql ")
+	}
+
+	if len(out) != 0 {
+		out = nil
+	}
+
+	rows, err := AdminDB.Raw(sql, values ...).Rows
+	if err != nil {
+		return err
+	}
+
+	defer rows.Close()
+
+	
+
+	for rows.Next() {
+		var rowUser *UserInfo
+		
+		db.ScanRows(rows, rowUser)
+
+		out.append(rowUser)
+	}
+
+	return nil
+}
