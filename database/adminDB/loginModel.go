@@ -78,30 +78,28 @@ func (user *UserInfo) Update(modify map[string]interface{}, queryString interfac
 	return nil
 }
 
-func (user *UserInfo) Query(sql string, values ...interface{}, out []*UserInfo) error {
+func (user *UserInfo) Exec(out []*UserInfo, sql string, values ...interface{}) error {
 	if sql == "" {
 		return errors.New("no Sql ")
 	}
 
-	if len(out) != 0 {
+	if len(out) == 0 {
 		out = nil
 	}
 
-	rows, err := AdminDB.Raw(sql, values ...).Rows
+	rows, err := AdminDB.Raw(sql, values...).Rows()
 	if err != nil {
 		return err
 	}
 
 	defer rows.Close()
 
-	
-
 	for rows.Next() {
 		var rowUser *UserInfo
-		
-		db.ScanRows(rows, rowUser)
 
-		out.append(rowUser)
+		AdminDB.ScanRows(rows, rowUser)
+
+		out = append(out, rowUser)
 	}
 
 	return nil
