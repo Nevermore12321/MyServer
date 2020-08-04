@@ -18,6 +18,12 @@ Keep going. Keep knowing.
 - gorm : 操作 mysql
     - go get -u github.com/jinzhu/gorm
 
+- session: /gin-contrib/sessions  设置 session 为redis
+    - go get -u github.com/gin-contrib/sessions
+    
+- csrf: 防止跨域攻击
+    - 
+
 ## gin-swagger 使用
 
 1. swag init
@@ -41,3 +47,4 @@ DefaultQuery | DefaultPostForm | key不存在的话，可以指定返回的默�
 
 
 https://github.com/ReadRou/gin_project
+https://github.com/mydevc/go-gin-mvc
