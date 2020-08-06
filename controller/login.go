@@ -18,7 +18,7 @@ import (
 // @Success 200 {string} json "{"errcode":"200","data":"[{"expId":"111","expName":"TensorFlow","expType":"TensorFlow","expTrade":"制造业","expScene":"零售","expRemark":"零售零售零售零售","expDeg":"2","expCreateUser":"tfg"}]","msg":""}"
 // @Failure 400 {string} json "{"errcode":"400","data":"","msg":"error......"}"
 // @Router / [get]
-func LoginController(ctx *gin.Context) {
+func LoginAction(ctx *gin.Context) {
 	app.Logger.Info("log success", zap.String("url", ctx.Request.URL.Host))
 	app.Logger.Debug("debug success")
 	app.Logger.Error("Error success")

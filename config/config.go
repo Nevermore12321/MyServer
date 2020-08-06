@@ -47,6 +47,14 @@ func GetStringFromConfig(key string) string {
 	return ConfigViper.GetString(key)
 }
 
+func GetIntFromConfig(key string) int {
+	return ConfigViper.GetInt(key)
+}
+
+func GetInt64FromConfig(key string) int64 {
+	return ConfigViper.GetInt64(key)
+}
+
 func GetStringSliceFromConfig(key string) []string {
 	return ConfigViper.GetStringSlice(key)
 }

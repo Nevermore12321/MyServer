@@ -29,3 +29,13 @@ redis:
   port: 6379
   password: gsh123
   protocol: tcp
+  max_idle: 10
+  max_active: 10240
+  idle_timeout: 240
+  timeout: 20
+  #  redis 默认有 16 个数据库，从 0-15
+  database: 0
+  secret: abcdefg1234567
+
+cookie:
+  name: golang_server
