@@ -1,8 +1,6 @@
 package middleware
 
 import (
-	"MyServer/app"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -24,10 +22,10 @@ func corssDomain() gin.HandlerFunc {
 			ctx.Header("Access-Control-Allow-Method", "POST, GET, PUT, DELETE, UPDATE, OPTIONS")
 
 			//  Access-Control-Allow-Headers 表示跨域请求的Header中允许带的字段
-			ctx.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-CSRF-Token, Token, Session")
+			ctx.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-Csrf-Token, X-Xsrf-Token,Token, Session")
 
 			//  Access-Control-Expose-Headers  表示客户端（浏览器） 可以解析出来的头部Header
-			ctx.Header("Access-Control-Expose-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Content-Length")
+			ctx.Header("Access-Control-Expose-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Content-Length, X-Csrf-Token")
 
 			//  Access-Control-Allow-Credentials   表示允许客户端传递验证信息（COokies）
 			ctx.Header("Access-Control-Allow-Credentials", "true")
@@ -42,14 +40,12 @@ func corssDomain() gin.HandlerFunc {
 		}
 
 		//   如果 有异常 panic ， 通过 defer 捕获
-		defer func() {
-			if err := recover(); err != nil {
-				errMessage := fmt.Sprintf("Corss Domain Panic Info : %v", err)
-				app.Logger.Panic(errMessage)
-			}
-		}()
-
-		app.Logger.Debug("Corss Domain middleware success configure.")
+		//defer func() {
+		//	if err := recover(); err != nil {
+		//		errMessage := fmt.Sprintf("Corss Domain Panic Info : %v", err)
+		//		app.Logger.Panic(errMessage)
+		//	}
+		//}()
 		ctx.Next()
 	}
 }

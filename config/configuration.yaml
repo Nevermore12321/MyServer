@@ -7,7 +7,7 @@ swagger:
   title: Golang Web Server API
   description: This is a my backend server.
   version: v1
-  basePath: v1
+  basePath: /v1/admin
   schemes:
     - https
     - http
@@ -30,7 +30,7 @@ redis:
   password: gsh123
   protocol: tcp
   max_idle: 10
-  max_active: 10240
+  max_active: 1024
   idle_timeout: 240
   timeout: 20
   #  redis 默认有 16 个数据库，从 0-15
@@ -39,3 +39,8 @@ redis:
 
 cookie:
   name: golang_server
+
+csrf:
+  csrfSecret: myCsrfSecret
+  csrfSalt: myCsrfSalt
+  csrfToken: myCsrfToken

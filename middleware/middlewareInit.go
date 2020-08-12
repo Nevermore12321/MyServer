@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"MyServer/app"
+	"MyServer/config"
 )
 
 func init() {
@@ -10,7 +11,20 @@ func init() {
 
 	//  注册 跨域中间件
 	myApp.Router.Use(corssDomain())
+	app.Logger.Debug("Corss Domain middleware success configure.")
 
 	//  注册 session redis 中间件
 	myApp.Router.Use(sessionByRedis())
+	app.Logger.Debug("Session store to Redis middleware success configure.")
+
+	//  注册 捕获异常 中间件 catchErr
+	myApp.Router.Use(catchError())
+	app.Logger.Debug("Catch error middleware success configure.")
+
+	//  注册 csrf token 验证 中间件
+	myApp.Router.Use(csrfTokenValidate(CsrfOptions{
+		Secret:    config.GetStringFromConfig("csrf.csrfSecret"),
+		ErrorFunc: AddErrorFunc,
+	}))
+	app.Logger.Debug("CSRF token validator middleware success configure.")
 }

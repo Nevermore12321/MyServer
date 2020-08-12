@@ -58,6 +58,11 @@ func sessionByRedis() gin.HandlerFunc {
 		app.Logger.Error(errMsg)
 		panic(err)
 	}
+	store.Options(sessions.Options{
+		HttpOnly: true,
+		Secure:   false,
+		MaxAge:   73400,
+	})
 
 	// 指的是session的名字，也是cookie的名字
 	return sessions.Sessions(seesionCookieName, store)

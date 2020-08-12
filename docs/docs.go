@@ -25,8 +25,33 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/": {
+        "/getCSRF": {
             "get": {
+                "description": "用户第一次访问后端服务器时，需要获取 CSRF Token",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "验证"
+                ],
+                "summary": "获取 CSRF Token",
+                "responses": {
+                    "200": {
+                        "description": "{\"Message\": \"CSRF token is in response header\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/login": {
+            "get": {
+                "security": [
+                    {
+                        "csrf-token": []
+                    }
+                ],
                 "description": "验证用户登录是否成功",
                 "consumes": [
                     "application/json"
@@ -39,6 +64,13 @@ var doc = `{
                 ],
                 "summary": "登录",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "X-CSRF-TOKEN",
+                        "name": "csrf-token",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "integer",
                         "description": "ID",
