@@ -9,70 +9,7 @@ package errorslib
  *	5. 输入的过滤条件为空： Error info: Code: 200, Type: NoSqlFilterErr, Msg: Filter SQL condition does not exist
  */
 
-//  根据 err code 生成新的 error
-func NewDbErrorInt(code int) *DBError {
-	var errType string
-	var msg string
-
-	switch code {
-	case 100:
-		errType = "ReceiverIsNilErr"
-		msg = "The receiver of this method is nil"
-	case 101:
-		errType = "InsertDataExistErr"
-		msg = "The data to be inserted already exists"
-	case 102:
-		errType = "DeleteDataNotExistErr"
-		msg = "The data to be deleted does not exist"
-	case 103:
-		errType = "UpdateDataNotExistErr"
-		msg = "The data to be updated does not exist"
-	case 200:
-		errType = "NoSqlFilterErr"
-		msg = "Filter SQL condition does not exist"
-	default:
-		code = 0
-		errType = "NoExistErr"
-		msg = "The error is not existed"
-	}
-
-	return &DBError{
-		Code: code,
-		Type: errType,
-		Msg:  msg,
-	}
-}
-
-//  根据 err type 来生成新的 error
-func NewDbErrorType(errType string) *DBError {
-	var code int
-	var msg string
-
-	switch errType {
-	case "ReceiverIsNilErr":
-		code = 100
-		msg = "The receiver of this method is nil"
-	case "InsertDataExistErr":
-		code = 101
-		msg = "The data to be inserted already exists"
-	case "DeleteDataNotExistErr":
-		code = 102
-		msg = "The data to be deleted does not exist"
-	case "UpdateDataNotExistErr":
-		code = 103
-		msg = "The data to be updated does not exist"
-	case "NoSqlFilterErr":
-		code = 200
-		msg = "Filter SQL condition does not exist"
-	default:
-		code = 0
-		errType = "NoExistErr"
-		msg = "The error is not existed"
-	}
-
-	return &DBError{
-		Code: code,
-		Type: errType,
-		Msg:  msg,
-	}
-}
+var (
+	ErrUsernmaeNotFound  = New(100, "UsernameNotFound", "the searched user does not exist")
+	ErrIncorrectPasswrod = New(101, "IncorrectPassword", "the password is incorrect")
+)

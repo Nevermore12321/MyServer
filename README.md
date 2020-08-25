@@ -20,9 +20,12 @@ Keep going. Keep knowing.
 
 - session: /gin-contrib/sessions  设置 session 为redis
     - go get -u github.com/gin-contrib/sessions
-    
+- 用户id ：snowFlake 算法
+    - go get github.com/bwmarrin/snowflake
 - csrf: 防止跨域攻击
-    - 
+    - gin-csrf
+- jwt token
+    - gin-jwt
 
 ## gin-swagger 使用
 
@@ -48,3 +51,4 @@ DefaultQuery | DefaultPostForm | key不存在的话，可以指定返回的默�
 
 https://github.com/ReadRou/gin_project
 https://github.com/mydevc/go-gin-mvc
+https://github.com/Bingjian-Zhu/gin-vue

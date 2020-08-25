@@ -17,7 +17,7 @@ log:
   logFilename: server.log
 
 mysql:
-  host: 192.168.1.102
+  host: 192.168.1.103
   port: 3306
   user: gsh
   password: gsh123
@@ -25,7 +25,7 @@ mysql:
     database: golang_server
 
 redis:
-  host: 192.168.1.102
+  host: 192.168.1.103
   port: 6379
   password: gsh123
   protocol: tcp
@@ -44,3 +44,8 @@ csrf:
   csrfSecret: myCsrfSecret
   csrfSalt: myCsrfSalt
   csrfToken: myCsrfToken
+
+jwt:
+  realm: golang server
+  signingAlgorithm: HS256
+  secret: guoshaohe.com

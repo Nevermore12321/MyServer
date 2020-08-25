@@ -5,6 +5,8 @@ import (
 	"MyServer/config"
 )
 
+//  middleware init 用来注册 公共的 中间件，而 gin-jwt 这种中间件，需要根据具体的 路由来配置，因此在 route 中配置
+
 func init() {
 	//  将所有的中间件 在这里注册进入 gin framework， 注意，在main函数中 要 import middleware
 	myApp := app.Application()

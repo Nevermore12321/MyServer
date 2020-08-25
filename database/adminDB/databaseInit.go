@@ -36,6 +36,7 @@ func mysqlInit() {
 
 	//  建表
 	db.AutoMigrate(&UserInfo{})
+	db.AutoMigrate(&OriginAuth{})
 
 	AdminDB = db
 }
