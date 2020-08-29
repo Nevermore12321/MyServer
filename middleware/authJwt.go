@@ -248,9 +248,10 @@ func (mw *GinJWTMiddleware) MiddlewareInit() error {
 	if mw.LoginResponse == nil {
 		mw.LoginResponse = func(ctx *gin.Context, code int, token string, expire time.Time) {
 			ctx.JSON(code, gin.H{
-				"status": code,
-				"token":  token,
-				"expire": expire.Format(time.RFC3339),
+				"status":  code,
+				"token":   token,
+				"expire":  expire.Format(time.RFC3339),
+				"message": "login success",
 			})
 		}
 	}
@@ -424,6 +425,7 @@ func (mw *GinJWTMiddleware) MiddlewareImplement(ctx *gin.Context) {
 	claims, err := mw.GetClaimsFromJWT(ctx)
 	if err != nil {
 		mw.Unauthorized(ctx, http.StatusUnauthorized, mw.HTTPStatusMessageFunc(err, ctx))
+		ctx.Abort()
 		return
 	}
 

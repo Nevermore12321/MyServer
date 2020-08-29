@@ -25,27 +25,7 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/getCSRF": {
-            "get": {
-                "description": "用户第一次访问后端服务器时，需要获取 CSRF Token",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "验证"
-                ],
-                "summary": "获取 CSRF Token",
-                "responses": {
-                    "200": {
-                        "description": "{\"Message\": \"CSRF token is in response header\"}",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/login": {
+        "/admin/login": {
             "get": {
                 "security": [
                     {
@@ -60,7 +40,7 @@ var doc = `{
                     "application/json"
                 ],
                 "tags": [
-                    "用户信息"
+                    "校验"
                 ],
                 "summary": "登录",
                 "parameters": [
@@ -72,26 +52,124 @@ var doc = `{
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "ID",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
+                        "type": "string",
+                        "name": "password",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "name": "username",
+                        "in": "query"
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{\"errcode\":\"200\",\"data\":\"[{\"expId\":\"111\",\"expName\":\"TensorFlow\",\"expType\":\"TensorFlow\",\"expTrade\":\"制造业\",\"expScene\":\"零售\",\"expRemark\":\"零售零售零售零售\",\"expDeg\":\"2\",\"expCreateUser\":\"tfg\"}]\",\"msg\":\"\"}",
+                        "description": "{\"status\":200,\"data\":{},\"message\":\"ok\"}",
                         "schema": {
                             "type": "string"
                         }
                     },
                     "400": {
-                        "description": "{\"errcode\":\"400\",\"data\":\"\",\"msg\":\"error......\"}",
+                        "description": "{\"status\":400,\"data\":{},\"message\":\"bad request\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "{\"status\":401,\"data\":{},\"message\":\"forbidden\"}",
                         "schema": {
                             "type": "string"
                         }
                     }
+                }
+            }
+        },
+        "/admin/refresh_token": {
+            "get": {
+                "security": [
+                    {
+                        "csrf-token": []
+                    },
+                    {
+                        "authorization": []
+                    }
+                ],
+                "description": "更新login后获取的jwt token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "校验"
+                ],
+                "summary": "刷新 jwt token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "X-CSRF-TOKEN",
+                        "name": "csrf-token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Bearer xxx",
+                        "name": "authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"status\":200,\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlIjoiYWEiLCJVc2VySUQiOiJnc2hhYWEiLCJVc2VybmFtZSI6ImdzaCIsImV4cCI6MTU5ODQ1MzAyMywib3JpZ19pYXQiOjE1OTg0NDk0MjMsInRlc3RLZXkiOiIifQ.lY7eeTtIyO9eexpmEAWh8s196MGiFpJR-xjiFgdlRLA\",\"expire\":\"2020-08-26T22:43:43+08:00\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "{\"status\":401,\"data\":{},\"message\":\"token is expired\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/getCSRF": {
+            "get": {
+                "description": "用户第一次访问后端服务器时，需要获取 CSRF Token",
+                "tags": [
+                    "校验"
+                ],
+                "summary": "获取 CSRF Token",
+                "responses": {
+                    "200": {
+                        "description": "{\"status\":200,\"message\":\"CSRF token is in response header\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "{\"status\":400,\"message\":\"CSRF token mismatch\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "adminActions.UserRequsetBody": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
                 }
             }
         }

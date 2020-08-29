@@ -1,21 +1,16 @@
+definitions:
+  adminActions.UserRequsetBody:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 info:
   contact: {}
   license: {}
 paths:
-  /getCSRF:
-    get:
-      description: 用户第一次访问后端服务器时，需要获取 CSRF Token
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: '{"Message": "CSRF token is in response header"}'
-          schema:
-            type: string
-      summary: 获取 CSRF Token
-      tags:
-      - 验证
-  /login:
+  /admin/login:
     get:
       consumes:
       - application/json
@@ -26,25 +21,78 @@ paths:
         name: csrf-token
         required: true
         type: string
-      - description: ID
-        in: path
-        name: id
-        required: true
-        type: integer
+      - in: query
+        name: password
+        type: string
+      - in: query
+        name: username
+        type: string
       produces:
       - application/json
       responses:
         "200":
-          description: '{"errcode":"200","data":"[{"expId":"111","expName":"TensorFlow","expType":"TensorFlow","expTrade":"制造业","expScene":"零售","expRemark":"零售零售零售零售","expDeg":"2","expCreateUser":"tfg"}]","msg":""}'
+          description: '{"status":200,"data":{},"message":"ok"}'
           schema:
             type: string
         "400":
-          description: '{"errcode":"400","data":"","msg":"error......"}'
+          description: '{"status":400,"data":{},"message":"bad request"}'
+          schema:
+            type: string
+        "401":
+          description: '{"status":401,"data":{},"message":"forbidden"}'
           schema:
             type: string
       security:
       - csrf-token: []
       summary: 登录
       tags:
-      - 用户信息
+      - 校验
+  /admin/refresh_token:
+    get:
+      consumes:
+      - application/json
+      description: 更新login后获取的jwt token
+      parameters:
+      - description: X-CSRF-TOKEN
+        in: header
+        name: csrf-token
+        required: true
+        type: string
+      - description: Bearer xxx
+        in: header
+        name: authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"status":200,"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJSb2xlIjoiYWEiLCJVc2VySUQiOiJnc2hhYWEiLCJVc2VybmFtZSI6ImdzaCIsImV4cCI6MTU5ODQ1MzAyMywib3JpZ19pYXQiOjE1OTg0NDk0MjMsInRlc3RLZXkiOiIifQ.lY7eeTtIyO9eexpmEAWh8s196MGiFpJR-xjiFgdlRLA","expire":"2020-08-26T22:43:43+08:00"}'
+          schema:
+            type: string
+        "401":
+          description: '{"status":401,"data":{},"message":"token is expired"}'
+          schema:
+            type: string
+      security:
+      - csrf-token: []
+      - authorization: []
+      summary: 刷新 jwt token
+      tags:
+      - 校验
+  /getCSRF:
+    get:
+      description: 用户第一次访问后端服务器时，需要获取 CSRF Token
+      responses:
+        "200":
+          description: '{"status":200,"message":"CSRF token is in response header"}'
+          schema:
+            type: string
+        "400":
+          description: '{"status":400,"message":"CSRF token mismatch"}'
+          schema:
+            type: string
+      summary: 获取 CSRF Token
+      tags:
+      - 校验
 swagger: "2.0"

@@ -22,7 +22,7 @@ func corssDomain() gin.HandlerFunc {
 			ctx.Header("Access-Control-Allow-Method", "POST, GET, PUT, DELETE, UPDATE, OPTIONS")
 
 			//  Access-Control-Allow-Headers 表示跨域请求的Header中允许带的字段
-			ctx.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, X-Csrf-Token, X-Xsrf-Token,Token, Session")
+			ctx.Header("Access-Control-Allow-Headers", "Authorization, Content-Length, Content-Type, X-Csrf-Token, X-Xsrf-Token,Token, Session")
 
 			//  Access-Control-Expose-Headers  表示客户端（浏览器） 可以解析出来的头部Header
 			ctx.Header("Access-Control-Expose-Headers", "Access-Control-Allow-Headers, Access-Control-Allow-Origin, Content-Length, X-Csrf-Token")
@@ -37,6 +37,7 @@ func corssDomain() gin.HandlerFunc {
 		//  需要允许 OPTIONS 的预检 请求, 如果是 OPTIONS请求， 直接返回 200 OK
 		if method == "OPTIONS" {
 			ctx.JSON(http.StatusOK, "OK")
+			ctx.Abort()
 		}
 
 		//   如果 有异常 panic ， 通过 defer 捕获

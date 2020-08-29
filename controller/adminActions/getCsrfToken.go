@@ -9,9 +9,9 @@ import (
 
 // @Summary 获取 CSRF Token
 // @Description 用户第一次访问后端服务器时，需要获取 CSRF Token
-// @Tags 验证
-// @Produce  json
-// @Success 200 {string} json "{"Message": "CSRF token is in response header"}"
+// @Tags 校验
+// @Success 200 {string} json "{"status":200,"message":"CSRF token is in response header"}"
+// @Failure 400 {string} json "{"status":400,"message":"CSRF token mismatch"}"
 // @Router /getCSRF [get]
 func GetCsrfTokenAction(ctx *gin.Context) {
 	token := middleware.GetToken(ctx)

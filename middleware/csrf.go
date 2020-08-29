@@ -93,7 +93,7 @@ func inArray(arr []string, key string) bool {
 
 func AddErrorFunc(ctx *gin.Context) {
 	ctx.JSON(400, gin.H{
-		"detail": "CSRF token mismatch",
+		"message": "CSRF token mismatch",
 	})
 	ctx.Abort()
 }
@@ -161,6 +161,7 @@ func csrfTokenValidate(options CsrfOptions) gin.HandlerFunc {
 
 		//  从 ctx 中 获取 csrfToken 的值，如果不存在，表示验证失败，直接返回
 		token := tokenGetter(ctx)
+		fmt.Println(token)
 
 		if tokenize(options.Secret, salt.(string)) != token {
 			errorFunc(ctx)
